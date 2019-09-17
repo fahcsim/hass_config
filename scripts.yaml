@@ -1,0 +1,25 @@
+'1567474275264':
+  alias: Sprinkler
+  sequence:
+  - event: Sprinkler
+    event_data:
+      entity_id: switch.sprinkler
+'1567489156870':
+  alias: Basement Light
+  sequence:
+  - alias: ''
+    data:
+      entity_id: switch.under_house_light
+    service: switch.toggle
+'1567827496285':
+  alias: Garage Exterior Lights
+  sequence:
+  - event: Outside Lights
+    event_data:
+      entity_id: switch.outside_light
+'1568524661322':
+  alias: Rack Lights
+  sequence:
+  - data:
+      entity_id: switch.rack_lights
+    service: switch.turn_on

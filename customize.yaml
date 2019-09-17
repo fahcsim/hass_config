@@ -1,0 +1,2 @@
+switch.garage_lights:
+  assumed_state: true

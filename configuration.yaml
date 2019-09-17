@@ -1,0 +1,69 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+homeassistant:
+packages: !include_dir_named packages
+automation: !include_dir_named automations
+script: !include_dir_named scripts
+discovery:
+# Text to speech
+tts:
+  - platform: google_translate
+group: !include groups.yaml
+binary_sensor:
+  - platform: rpi_gpio 
+    ports:
+      17: Rack Lights
+      16: Under House Light 
+      27: Outside Lights
+      22: Bluetooth Garage
+      23: Garage Pir
+      24: water
+      20: GHL Real
+      12: GL Real     
+switch:
+  - platform: rpi_gpio 
+    ports:
+     17: Rack Lights
+     16: Under House Light
+     27: Outside Lights
+     22: Bluetooth Garage
+     20: GHL Real
+     12: Gl Real
+  - platform: template
+    switches:
+      garage_lights:
+        value_template: "{{ is_state('switch.gl_real', 'off') }}" # fake switch is on when garage lights switch reports off, and vice versa
+        turn_on:
+          service: switch.turn_off
+          data:
+            entity_id: switch.gl_real
+        turn_off:
+          service: switch.turn_on
+          data:
+            entity_id: switch.gl_real
+      garage_hall_lights:
+        value_template: "{{ is_state('switch.ghl_real', 'off') }}" # fake switch is on when garage lights switch reports off, and vice versa
+        turn_on:
+          service: switch.turn_off
+          data:
+            entity_id: switch.ghl_real
+        turn_off:
+          service: switch.turn_on
+          data:
+            entity_id: switch.ghl_real        
+sensor:
+  - platform: onewire
+    names:
+      28-03069779d752: Rack Temp
+      28-0306977997a9: Hallway Temp
+      28-03069779b6d7: Box Temp
+timer:
+  timer_lamp:
+    duration: '00:10:15'
+    
+    
