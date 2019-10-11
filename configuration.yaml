@@ -16,7 +16,7 @@ tts:
 mqtt:
   broker: 10.0.0.160
   username: mqtt
-  password: mosquito
+  password: !secret mqtt_pass
 binary_sensor:
   - platform: rpi_gpio 
     invert_logic: true
