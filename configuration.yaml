@@ -1,9 +1,5 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
-# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-# http:
-#   base_url: example.duckdns.org:8123
-
 homeassistant:
   packages: !include_dir_named packages/
 script: !include_dir_named scripts/
@@ -42,6 +38,17 @@ switch:
      20: Gl Real
      5: Garage Shelf
      6: Box
+  - platform: mqtt
+    name: "Spare_Bed"
+    state_topic: "house/interior/groundfloor/output/Spare_Bed"
+    command_topic: "house/interior/groundfloor/output/Spare_Bed/set"
+    payload_on: "ON"
+    payload_off: "OFF"
+    state_on: "ON"
+    state_off: "OFF"
+    optimistic: false
+    qos: 0
+    retain: true    
   - platform: mqtt
     name: "Master_Bed"
     state_topic: "house/interior/groundfloor/output/Master_Bed"

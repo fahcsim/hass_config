@@ -22,3 +22,16 @@ automation:
     entity_id: 
       - switch.garage_lights
       - switch.garage_hall_lights
+
+#turn off lights on reboot, due to relay config they default to on when rebooted
+- id: '1570941020623'
+  alias: Reboot Turn Off AC Lights
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+    service: switch.turn_off
+    entity_id: 
+      - switch.garage_lights
+      - switch.garage_hall_lights
